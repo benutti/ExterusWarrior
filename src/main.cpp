@@ -49,7 +49,7 @@
 
 void setup() {
    Wire.begin(); 
-   Serial.begin(9600);
+   Serial.begin(115000);
 
 }
 
@@ -144,17 +144,18 @@ void test_query(byte adr, byte value)
 {
   byte result = 0x00;
   byte dali = get_dali_address(DALI_SHORT, adr, DALI_MODE_CMD);   //create valid DALI address
-  read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
-
-  Serial.print("QUERY  >>> ");
-  Serial.println(result, HEX);
+  result = read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
+  Serial.print(adr,DEC);
+  Serial.print(" >>> ");
+  Serial.println(result, DEC);
 }
 
 void loop() 
 {
   //test_cmd();
-  test_broadcast(DALI_MIN);
+  for (int i = 0; i <= 63; i++) {
+  test_query(i,0xA0);
   delay(1000);
-  test_broadcast(DALI_MAX);
-  delay(1000);
+  }
+
 }
