@@ -293,3 +293,49 @@ BIT 7: unused										-> "0" = default
 
 
 
+// This is your main class that users will import into their application
+class Dali
+{
+public:
+  /**
+   * Constructor
+   */
+  Dali();
+
+/*
+Begin; set the address of the LED Warrior
+*/
+  void begin();
+
+/*Create valid DALI address. (Please take a look into the datasheet or DALI DIN spec)
+Address pattern: S AAA AAA Y
+S for group bit
+AAA AAA (adr) for DALI device 0...63 or group 0...15
+Y for command or DACP mode
+*/
+  byte get_dali_address(byte s, byte adr, byte y);
+
+//Wait until DALI bus is ready to send next data. DALI is slow!
+  byte wait_for_ready();
+
+//Read 1 byte from command register of LW14
+  byte read_data();
+
+//Send value to DALI device
+  void send_command(int a, int b);
+
+//Get a query value from dali device
+  byte read_query(int a, int b);
+
+//Test function to send DACP value (direct dimm) to device 0...63
+  void test_dacp(byte adr, byte value);
+
+//Send DALI command OFF to device 0...63
+  void test_cmd(byte adr, byte value);
+
+//Send DALI command OFF to all devices (broadcast)
+  void test_broadcast(byte value);
+
+//Get ActualLevel from DALI device 0...63
+  void test_query(byte adr, byte value);
+};
