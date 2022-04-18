@@ -5,7 +5,7 @@
 #include <Dali.h>    //List of command bytes for IEC62386-102:2009 standard
 
 /*!ATTENTION!*/
-#define NOP() asm volatile ("nop") //Workaround for delayMicrosecondeExt function
+//#define NOP() asm volatile ("nop") //Workaround for delayMicrosecondeExt function
 
 
 //LW14 I2C address 7Bit
@@ -32,7 +32,7 @@
 
 void setup() 
 {
-    Wire.begin(21,22); 
+    Wire.begin(21,22);
     Serial.begin(115200);
 }
 
