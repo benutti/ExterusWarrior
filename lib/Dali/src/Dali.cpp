@@ -123,9 +123,9 @@ void Dali::test_query(byte adr, byte value)
 {
   byte result = 0x00;
   byte dali = get_dali_address(DA_SHORT_BIT, adr, DA_MODE_COMMAND);   //create valid DALI address
-  read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
+  result=read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
 
   Serial.print("QUERY  >>> ");
-  Serial.println(result, HEX);
+  Serial.println(result, DEC);
 };
 

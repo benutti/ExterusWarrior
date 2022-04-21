@@ -28,18 +28,46 @@
 #define STATUS_OVERRUN          0x20
 #define STATUS_BUSY             0x40      //0: ready, 1: busy
 #define STATUS_BUS_FAULT        0x80      //0: OK, 1: bus fault
-
-
+ int teller=0;
+     Dali dali;
 void setup() 
 {
     Serial.begin(115200);
-    Dali dali;
     dali.begin();
-}
+    Serial.print("Enter dali addres to query:");
 
+}
+char rx_byte = 0;
+String rx_str = "";
 void loop() 
 {
+  if (Serial.available() > 0) {    // is a character available?
+    rx_byte = Serial.read();       // get the character
+    if (rx_byte != '\n') {
+      // a character of the string was received
+      rx_str += rx_byte;
+      Serial.print(rx_byte);
+    }
+    else {
+      // end of string
+      Serial.print("Dali address ");
+      Serial.println(rx_str);
+      dali.test_query(rx_str.toInt(),DA_QUERY_ACTUAL_LEVEL);
+      rx_str = "";                // clear the string for reuse
+      Serial.println("");
+      Serial.print("Enter dali addres to query: ");
+    }
+  } // end: if (Serial.available() > 0)
 
 
-    
+
+//     delay(500);
+
+// if(teller<19)
+// {
+//     Serial.print(teller);
+//     Serial.print(" ");
+//     dali.test_query(teller,DA_QUERY_ACTUAL_LEVEL);
+//     teller++;
+// };
 }

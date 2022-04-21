@@ -142,7 +142,7 @@ void test_query(byte adr, byte value)
 {
   byte result = 0x00;
   byte dali = get_dali_address(DALI_SHORT, adr, DALI_MODE_CMD);   //create valid DALI address
-  read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
+  result= read_query(dali, value);                                       //f.e. 0xA0 -> QueryActualLevel
 
   Serial.print("QUERY  >>> ");
   Serial.println(result, HEX);
